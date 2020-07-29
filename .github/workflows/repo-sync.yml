@@ -1,0 +1,21 @@
+# File: .github/workflows/repo-sync.yml
+
+on:
+  push:
+    branches:
+      - github_actions
+  schedule:
+  - cron:  "*/15 * * * *"
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: repo-sync
+      uses: Gibby/github-sync@add_tag_option
+      with:
+        source_repo: "https://github.com/mguinness/IntelliCenterGateway.git"
+        source_branch: "master"
+        destination_branch: "master"
+        sync_tags: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
